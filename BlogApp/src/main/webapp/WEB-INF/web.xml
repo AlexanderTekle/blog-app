@@ -7,4 +7,13 @@
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>mail</servlet-name>
+  	<servlet-class>MailCron</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>mail</servlet-name>
+  	<url-pattern>/tasks/mail</url-pattern>
+  </servlet-mapping>
 </web-app>

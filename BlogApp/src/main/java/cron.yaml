@@ -1,5 +1,6 @@
 cron:
 - description: "daily summary job"
-  url: /tasks/summary
+  url: /tasks/mail
   target: beta
-  schedule: every 24 hours
+  schedule: every day 5:00
+  timezone: America/Chicago
