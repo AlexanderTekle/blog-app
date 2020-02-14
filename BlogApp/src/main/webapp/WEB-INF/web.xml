@@ -17,7 +17,6 @@
   	<url-pattern>/tasks/mail</url-pattern>
   </servlet-mapping>
   
-  
     <servlet>
   	<servlet-name>printemail</servlet-name>
   	<servlet-class>PrintEmail</servlet-class>
