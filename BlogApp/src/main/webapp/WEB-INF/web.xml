@@ -16,4 +16,14 @@
   	<servlet-name>mail</servlet-name>
   	<url-pattern>/tasks/mail</url-pattern>
   </servlet-mapping>
+  
+  
+    <servlet>
+  	<servlet-name>printemail</servlet-name>
+  	<servlet-class>PrintEmail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>printemail</servlet-name>
+  	<url-pattern>/printemail</url-pattern>
+  </servlet-mapping>
 </web-app>
