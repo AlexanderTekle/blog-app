@@ -16,4 +16,5 @@
   	<servlet-name>mail</servlet-name>
   	<url-pattern>/tasks/mail</url-pattern>
   </servlet-mapping>
+  
 </web-app>
