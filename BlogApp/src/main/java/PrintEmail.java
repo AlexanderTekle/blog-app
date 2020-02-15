@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
+
+
 
 
 @SuppressWarnings("serial")
@@ -25,16 +26,46 @@ public class PrintEmail extends HttpServlet {
 
     PrintWriter out = resp.getWriter();
     
-    String email = req.getParameter("email");
+    String title = req.getParameter("title");
+    String content = req.getParameter("content");
+
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity emailEntity = new Entity("Email");
-    emailEntity.setProperty("email", email);
-    emailEntity.setProperty("timestamp", System.currentTimeMillis());
-    datastore.put(emailEntity);
+    Entity postEntity = new Entity("BlogPost");
+    postEntity.setProperty("Title", title);
+    postEntity.setProperty("Content", content);
+    postEntity.setProperty("timestamp", System.currentTimeMillis());
+    datastore.put(postEntity);
     
-    out.println("Persisted email");
+    grabPosts(req, resp, datastore);
+    
+    //out.println("Persisted email");
+    
+    //name
+    //date
+    //title
+    //content
     
     
+  }
+  
+  public void grabPosts(HttpServletRequest req, HttpServletResponse resp, DatastoreService datastore) throws IOException, ServletException {
+	  String[] postTitles = new String[3];
+	  String[] postContents = new String[3];
+	  int i=0;
+	  
+	  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
+		  postTitles[i] = (String) entity.getProperty("Title");
+		  postContents[i] = (String) entity.getProperty("Content");		  
+		  i++;
+		  if (i >= 3)
+			  break;
+	  }
+	  req.setAttribute("titles", postTitles);
+	  req.setAttribute("contents", postContents);
+	  req.setAttribute("length",i);
+	  RequestDispatcher view = req.getRequestDispatcher("index.jsp");
+      view.forward(req, resp);
+	  
   }
 }

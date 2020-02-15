@@ -9,6 +9,8 @@
   margin-right: auto;
   height: 180px;
   width: 30%;
-
-
 }
+
+#blogposttitle {
+	text-align:center;
+} 
