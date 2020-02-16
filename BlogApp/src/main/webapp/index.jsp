@@ -15,7 +15,7 @@
     <!-- Content here -->
     <h1 id = "title">Bernie Blog</h1>
     <img id = "bernie" src="/images/bernie.jpg" />
-    <form>
+<!--  <form>
 	    <div class="form-group">
 	      <label for="exampleInputEmail1">Email address</label>
 	      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -28,23 +28,21 @@
 	    </div>
 	    <button type="submit" class="btn btn-primary">Submit</button>
   	</form>
-  	
+-->
+	<h3 id="welcome">Welcome! Please sign in!</h3>
   	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script>
       function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
+        welcomeText(profile);
       }
+    </script>
+    <script>
+    	function welcomeText(profile)
+    	{
+    		document.getElementById("welcome").innerHTML = "Welcome, " + profile.getName() + "!";
+    	}
     </script>
     
       <br>
