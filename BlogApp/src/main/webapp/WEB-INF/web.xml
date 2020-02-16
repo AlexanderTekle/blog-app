@@ -24,4 +24,13 @@
   	<servlet-name>printemail</servlet-name>
   	<url-pattern>/printemail</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>grabposts</servlet-name>
+  	<servlet-class>GrabPosts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>grabposts</servlet-name>
+  	<url-pattern></url-pattern>
+  </servlet-mapping>
 </web-app>
