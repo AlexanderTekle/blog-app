@@ -28,7 +28,7 @@ public class MailCron extends HttpServlet {
 
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("s.dauenbaugh@utexas.edu", "Sam School"));
+			msg.setFrom(new InternetAddress("mailer@blog-app-268202.appspotmail.com", "Bernie Blog"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("s.dauenbaugh@gmail.com", "Sam"));
 			msg.setSubject("Testing");
 			msg.setText("This message is a test");
