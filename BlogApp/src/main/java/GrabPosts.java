@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.annotation.WebServlet;
@@ -26,28 +27,26 @@ public class GrabPosts extends HttpServlet{
 	  
 		  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		  
-		  String[] postTitles = new String[3];
-		  String[] postContents = new String[3];
-		  String[] postTimes = new String[3];
-
+	      ArrayList<String> postTitles = new ArrayList<String>();
+	      ArrayList<String> postContents = new ArrayList<String>();
+	      ArrayList<String> postTimes = new ArrayList<String>();
 		  int i=0;
 		  
 		  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
-			  postTitles[i] = (String) entity.getProperty("Title");
-			  postContents[i] = (String) entity.getProperty("Content");	
-			  postTimes[i] = convertTime((Long)entity.getProperty("timestamp"));
+			  postTitles.add((String) entity.getProperty("Title"));
+			  postContents.add((String) entity.getProperty("Content"));
+			  postTimes.add(convertTime((Long) entity.getProperty("timestamp")));	
+
 			  i++;
-			  if (i >= 3)
-				  break;
 		  }
 		  
 		  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
 			  System.out.println(entity);
 		  }
 		  
-		  req.setAttribute("titles", postTitles);
-		  req.setAttribute("contents", postContents);
-		  req.setAttribute("times", postTimes);
+		  req.setAttribute("titles", postTitles.toArray(new String[postTitles.size()]));
+		  req.setAttribute("contents", postContents.toArray(new String[postContents.size()]));
+		  req.setAttribute("times", postTimes.toArray(new String[postTimes.size()]));
 		  req.setAttribute("length",i);
 		  RequestDispatcher view = req.getRequestDispatcher("index.jsp");
 	      view.forward(req, resp);
@@ -56,7 +55,7 @@ public class GrabPosts extends HttpServlet{
 	  
 	  public String convertTime(long time){
 		    Date date = new Date(time);
-		    Format format = new SimpleDateFormat("MM/dd/yyyy, HH:mm");
+		    Format format = new SimpleDateFormat("MM/dd/yyyy");
 		    return format.format(date);
 	  }
 }

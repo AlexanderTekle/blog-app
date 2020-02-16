@@ -55,7 +55,7 @@ public class ShowAllPosts extends HttpServlet {
   
   public String convertTime(long time){
 	    Date date = new Date(time);
-	    Format format = new SimpleDateFormat("MM/dd/yyyy, HH:mm");
+	    Format format = new SimpleDateFormat("MM/dd/yyyy");
 	    return format.format(date);
   }
   

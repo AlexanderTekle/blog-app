@@ -15,7 +15,7 @@
     <!-- Content here -->
     <h1 id = "title">Bernie Blog</h1>
     <img id = "bernie" src="/images/bernie.jpg" />
-    <form>
+<!--  <form>
 	    <div class="form-group">
 	      <label for="exampleInputEmail1">Email address</label>
 	      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -28,23 +28,21 @@
 	    </div>
 	    <button type="submit" class="btn btn-primary">Submit</button>
   	</form>
-  	
+-->
+	<h3 id="welcome">Welcome! Please sign in!</h3>
   	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script>
       function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
+        welcomeText(profile);
       }
+    </script>
+    <script>
+    	function welcomeText(profile)
+    	{
+    		document.getElementById("welcome").innerHTML = "Welcome, " + profile.getName() + "!";
+    	}
     </script>
     
       <br>
@@ -67,9 +65,9 @@
 	 <br>
     <%
         //Actor actor = new Actor();
-		String[] titles = new String[3];
-	    String[] contents = new String[3];
-	    String[] times = new String[3];
+		String[] titles;
+	    String[] contents;
+	    String[] times;
         
         titles = (String[])request.getAttribute("titles");
         contents = (String[])request.getAttribute("contents");
@@ -85,7 +83,7 @@
     %>
 	 <div id = "blogposts">
 	 	<%if (titles != null && contents != null) { %>
-		  <% for (int i = 0; i < 3; ++i) { %>
+		  <% for (int i = titles.length-1; i > titles.length - 4; i--) { %>
 		        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
 		        <p><%= contents[i] %></p>
@@ -95,14 +93,14 @@
 		<% if (request.getAttribute("showallposts") != null) { %>
 			<% boolean allposts = (Boolean)request.getAttribute("showallposts"); %>
 			 <% if (allposts && titles != null && contents != null) { %>
-				<% int i = 3; %>
+				<% int i = titles.length-4; %>
 				<% int size = (Integer) request.getAttribute("length"); %>
-				<%while (i<size) { %>
+				<%while (i>=0) { %>
 			        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
 			        <p><%= contents[i] %></p> 
 			        
-					<% i++; %>
+					<% i--; %>
 				<% } %>
 			<% } %>
 		<% } %>

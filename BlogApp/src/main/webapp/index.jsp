@@ -65,9 +65,9 @@
 	 <br>
     <%
         //Actor actor = new Actor();
-		String[] titles = new String[3];
-	    String[] contents = new String[3];
-	    String[] times = new String[3];
+		String[] titles;
+	    String[] contents;
+	    String[] times;
         
         titles = (String[])request.getAttribute("titles");
         contents = (String[])request.getAttribute("contents");
@@ -83,7 +83,7 @@
     %>
 	 <div id = "blogposts">
 	 	<%if (titles != null && contents != null) { %>
-		  <% for (int i = 0; i < 3; ++i) { %>
+		  <% for (int i = titles.length-1; i > titles.length - 4; i--) { %>
 		        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
 		        <p><%= contents[i] %></p>
@@ -93,14 +93,14 @@
 		<% if (request.getAttribute("showallposts") != null) { %>
 			<% boolean allposts = (Boolean)request.getAttribute("showallposts"); %>
 			 <% if (allposts && titles != null && contents != null) { %>
-				<% int i = 3; %>
+				<% int i = titles.length-4; %>
 				<% int size = (Integer) request.getAttribute("length"); %>
-				<%while (i<size) { %>
+				<%while (i>=0) { %>
 			        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
 			        <p><%= contents[i] %></p> 
 			        
-					<% i++; %>
+					<% i--; %>
 				<% } %>
 			<% } %>
 		<% } %>
