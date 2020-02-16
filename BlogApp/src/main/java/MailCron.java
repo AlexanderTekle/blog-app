@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Date;
+import java.util.Calendar;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -25,18 +28,41 @@ public class MailCron extends HttpServlet {
 	    
 	    Properties props = new Properties();
 	    Session session = Session.getDefaultInstance(props, null);
-
-		try {
-			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("mailer@blog-app-268202.appspotmail.com", "Bernie Blog"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("s.dauenbaugh@gmail.com", "Sam"));
-			msg.setSubject("Testing");
-			msg.setText("This message is a test");
-			Transport.send(msg);
-		} catch (AddressException e) {
-		} catch (MessagingException e) {
-		} catch (UnsupportedEncodingException e) {
-		}
+	    
+	    ArrayList<String> mailingList = getMailList();
+	    
+	    String dailyMessage = "New Posts: \n";
+	    ArrayList<String> newPosts = new ArrayList<String>();
+	    newPosts.add("User x posted title");
+	    //Add new posts
+	    for(String post : newPosts)
+	    {
+	    	dailyMessage += post + "\n\n";
+	    }
+	    dailyMessage += "Thanks for subscribing to the Bernie Blog!";
+	    
+	    for(String sub : mailingList)
+	    {
+	    	try {
+				Message msg = new MimeMessage(session);
+				msg.setFrom(new InternetAddress("mailer@blog-app-268202.appspotmail.com", "Bernie Blog"));
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sub, "Subscriber"));
+				msg.setSubject("Bernie Blog Daily Update");
+				msg.setText(dailyMessage);
+				Transport.send(msg);
+			} catch (AddressException e) {
+			} catch (MessagingException e) {
+			} catch (UnsupportedEncodingException e) {
+			}
+	    }
+	}
+	
+	public ArrayList<String> getMailList()
+	{
+		ArrayList<String> mailingList = new ArrayList<String>();
+		mailingList.add("s.dauenbaugh@gmail.com");
+		//get all the subscribed emails from the datastore
+		return mailingList;
 	}
 
 }

@@ -1,9 +1,2 @@
-/.settings/
-/GrabPosts.class
-/HelloAppEngine.class
-/MailCron.class
-/PrintEmail.class
-/ShowAllPosts.class
-/Subscription.class
-/build/
 /src/
+/build/

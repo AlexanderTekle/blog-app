@@ -9,6 +9,8 @@
   <meta name="google-signin-scope" content="profile email">
   <!-- FIX THIS LINE --><meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script> var userEmail = null; </script>
+  <script> var userName = "Anonymous";</script>
 </head>
 <body>
   <div class="container">
@@ -30,18 +32,47 @@
   	</form>
 -->
 	<h3 id="welcome">Welcome! Please sign in!</h3>
-  	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+  	<div id="signinButton" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+  	<script>
+  		if(userEmail != null){
+  			document.getElementById("signinButton").style.display = "none";
+  			welcomeText();
+  		}
+  	</script>
     <script>
       function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        welcomeText(profile);
+        userEmail = profile.getEmail();
+        userName = profile.getName();
+        welcomeText();
       }
     </script>
     <script>
-    	function welcomeText(profile)
+    	function welcomeText()
     	{
-    		document.getElementById("welcome").innerHTML = "Welcome, " + profile.getName() + "!";
+    		if(userEmail != null)
+    			document.getElementById("welcome").innerHTML = "Welcome, " + userName + "!";
+    	}
+    </script>
+    
+    <!-- subscribe to emails button -->
+    <button onClick="unsubscribe()" id="unsubButton"> unsubscribe </button>
+    <button onClick="subscribe()" id="subButton"> subscribe </button>
+    <!-- Check if user is signed in and subscibed to email, adjust buttons accordingly -->
+    <script>
+    	function unsubscribe(){
+    		if(userEmail != null)
+    		{
+    			//remove email from datastore
+    		}
+    	}
+    	
+    	function subscribe(){
+    		if(userEmail != null)
+    		{
+    			//add email to datastore
+    		}
     	}
     </script>
     
@@ -60,7 +91,7 @@
 	
 	   <button type="submit" class="btn btn-primary">Submit</button>
 	 </form>
-	 
+
 	 <br>
 	 <br>
     <%
@@ -83,7 +114,7 @@
     %>
 	 <div id = "blogposts">
 	 	<%if (titles != null && contents != null) { %>
-		  <% for (int i = titles.length-1; i > titles.length - 4; i--) { %>
+		  <% for (int i = titles.length-1; i > titles.length - 4 && i >=0; i--) { %>
 		        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
 		        <p><%= contents[i] %></p>
@@ -109,8 +140,7 @@
 		 </form>
 		 
 	 </div>
-  </div>
-  
+  </div> 
 </body>
 
 </html>
