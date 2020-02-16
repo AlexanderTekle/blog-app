@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,11 +28,14 @@ public class GrabPosts extends HttpServlet{
 		  
 		  String[] postTitles = new String[3];
 		  String[] postContents = new String[3];
+		  String[] postTimes = new String[3];
+
 		  int i=0;
 		  
 		  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
 			  postTitles[i] = (String) entity.getProperty("Title");
-			  postContents[i] = (String) entity.getProperty("Content");		  
+			  postContents[i] = (String) entity.getProperty("Content");	
+			  postTimes[i] = convertTime((Long)entity.getProperty("timestamp"));
 			  i++;
 			  if (i >= 3)
 				  break;
@@ -40,9 +47,16 @@ public class GrabPosts extends HttpServlet{
 		  
 		  req.setAttribute("titles", postTitles);
 		  req.setAttribute("contents", postContents);
+		  req.setAttribute("times", postTimes);
 		  req.setAttribute("length",i);
 		  RequestDispatcher view = req.getRequestDispatcher("index.jsp");
 	      view.forward(req, resp);
 		  
+	  }
+	  
+	  public String convertTime(long time){
+		    Date date = new Date(time);
+		    Format format = new SimpleDateFormat("MM/dd/yyyy, HH:mm");
+		    return format.format(date);
 	  }
 }

@@ -16,13 +16,22 @@
   	<url-pattern>/tasks/mail</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
   	<servlet-name>printemail</servlet-name>
   	<servlet-class>PrintEmail</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>printemail</servlet-name>
   	<url-pattern>/printemail</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>showallposts</servlet-name>
+  	<servlet-class>ShowAllPosts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>showallposts</servlet-name>
+  	<url-pattern>/showallposts</url-pattern>
   </servlet-mapping>
   
   <servlet>

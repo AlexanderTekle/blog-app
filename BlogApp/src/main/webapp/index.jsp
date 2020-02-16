@@ -69,9 +69,11 @@
         //Actor actor = new Actor();
 		String[] titles = new String[3];
 	    String[] contents = new String[3];
+	    String[] times = new String[3];
         
         titles = (String[])request.getAttribute("titles");
         contents = (String[])request.getAttribute("contents");
+        times = (String[])request.getAttribute("times");
         int length;
         if (titles != null) {
 	        if (titles.length > 3)
@@ -85,9 +87,29 @@
 	 	<%if (titles != null && contents != null) { %>
 		  <% for (int i = 0; i < 3; ++i) { %>
 		        <h3><%= titles[i] %></h3>
+			        <p><%= times[i] %></p> 
 		        <p><%= contents[i] %></p>
 		  <% } %>
 		<% } %>
+		
+		<% if (request.getAttribute("showallposts") != null) { %>
+			<% boolean allposts = (Boolean)request.getAttribute("showallposts"); %>
+			 <% if (allposts && titles != null && contents != null) { %>
+				<% int i = 3; %>
+				<% int size = (Integer) request.getAttribute("length"); %>
+				<%while (i<size) { %>
+			        <h3><%= titles[i] %></h3>
+			        <p><%= times[i] %></p> 
+			        <p><%= contents[i] %></p> 
+			        
+					<% i++; %>
+				<% } %>
+			<% } %>
+		<% } %>
+		 <form method = "GET" action="/showallposts">
+			 <input type="submit" value = "Show All Posts" class="btn btn-outline-primary">
+		 </form>
+		 
 	 </div>
   </div>
   
