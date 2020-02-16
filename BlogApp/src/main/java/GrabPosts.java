@@ -33,6 +33,11 @@ public class GrabPosts extends HttpServlet{
 			  if (i >= 3)
 				  break;
 		  }
+		  
+		  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
+			  System.out.println(entity);
+		  }
+		  
 		  req.setAttribute("titles", postTitles);
 		  req.setAttribute("contents", postContents);
 		  req.setAttribute("length",i);

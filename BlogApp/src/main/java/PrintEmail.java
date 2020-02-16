@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 
 
@@ -25,13 +27,15 @@ public class PrintEmail extends HttpServlet {
       throws ServletException, IOException {
 
     PrintWriter out = resp.getWriter();
-    
     String title = req.getParameter("title");
     String content = req.getParameter("content");
 
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity postEntity = new Entity("BlogPost");
+    long time = System.currentTimeMillis();
+    Key key = KeyFactory.createKey("BlogPost", time);
+    
+    Entity postEntity = new Entity(key);
     postEntity.setProperty("Title", title);
     postEntity.setProperty("Content", content);
     postEntity.setProperty("timestamp", System.currentTimeMillis());
