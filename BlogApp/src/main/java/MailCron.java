@@ -44,7 +44,7 @@ public class MailCron extends HttpServlet {
 	    	String content = (String) entity.getProperty("Title");
 			long postTime = (Long) entity.getProperty("timestamp");
 			int timeDiff = (int)(currentTime - postTime);
-			if(timeDiff >= 86400000)
+			if(timeDiff <= 86400000)
 			{
 				int hoursAgo = (int)(timeDiff / 3600000);
 				content += "\nPosted " + hoursAgo + " hours ago";
