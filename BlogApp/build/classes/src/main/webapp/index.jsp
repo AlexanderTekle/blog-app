@@ -5,10 +5,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/styling/styles.css" />
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   
   <meta name="google-signin-scope" content="profile email">
-  <!-- FIX THIS LINE --><meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- FIX THIS LINE --><meta name="google-signin-client_id" content="141574783815-8g1umfjckms4926q9c9nn1d3klhreb5i.apps.googleusercontent.com">
   <script> var userEmail = null; </script>
   <script> var userName = "Anonymous";</script>
 </head>
@@ -58,7 +58,7 @@
     
     <br>
     
-    <form method="GET" action="/subsciption">
+    <form method="GET" action="/subscription">
     	<h3>Join our mailing list!</h3>
     	<input class="form-control form-control-lg" type="text" placeholder="your-email@gmail.com" name = "email">
     	<button type="submit" class="btn btn-primary">Subscribe</button>

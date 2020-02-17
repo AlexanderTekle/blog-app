@@ -47,13 +47,7 @@ public class PrintEmail extends HttpServlet {
     datastore.put(postEntity);
     
     grabPosts(req, resp, datastore);
-    
-    //out.println("Persisted email");
-    
-    //name
-    //date
-    //title
-    //content
+
     
     
   }
