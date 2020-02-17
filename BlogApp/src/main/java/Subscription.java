@@ -38,6 +38,8 @@ public class Subscription extends HttpServlet {
 	    	datastore.delete(key);
 	    	//unsubscribe
 	    }
+	    
+	    response.sendRedirect("https://blog-app-268202.appspot.com");
 	}
 
 	
