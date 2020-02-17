@@ -46,13 +46,17 @@
         userEmail = profile.getEmail();
         userName = profile.getName();
         welcomeText();
+        var x = document.getElementById("createpost");
+	    x.style.display = "block"
+        
       }
     </script>
     <script>
     	function welcomeText()
     	{
-    		if(userEmail != null)
+    		if(userEmail != null)  {
     			document.getElementById("welcome").innerHTML = "Welcome, " + userName + "!";
+    		}
     	}
     </script>
     
@@ -60,7 +64,8 @@
     
     <form method="GET" action="/subscription">
     	<h3>Join our mailing list!</h3>
-    	<input class="form-control form-control-lg" type="text" placeholder="your-email@gmail.com" name = "email">
+    	<input class="form-control form-control" type="text" placeholder="your-email@gmail.com" name = "email">
+    	<br>
     	<button type="submit" class="btn btn-primary">Subscribe</button>
 	 </form>
     
@@ -126,7 +131,10 @@
 		 <form method = "GET" action="/showallposts">
 			 <input type="submit" value = "Show All Posts" class="btn btn-outline-primary">
 		 </form>
-		 
+	    <form>
+		   <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
+		</form>
+
 	 </div>
   </div> 
 </body>
