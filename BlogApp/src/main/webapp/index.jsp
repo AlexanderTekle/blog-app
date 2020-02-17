@@ -58,7 +58,7 @@
     
     <br>
     
-    <form method="POST" action="/subsciption">
+    <form method="GET" action="/subscription">
     	<h3>Join our mailing list!</h3>
     	<input class="form-control form-control-lg" type="text" placeholder="your-email@gmail.com" name = "email">
     	<button type="submit" class="btn btn-primary">Subscribe</button>

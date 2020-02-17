@@ -56,25 +56,13 @@
     	}
     </script>
     
-    <!-- subscribe to emails button -->
-    <button onClick="unsubscribe()" id="unsubButton"> unsubscribe </button>
-    <button onClick="subscribe()" id="subButton"> subscribe </button>
-    <!-- Check if user is signed in and subscibed to email, adjust buttons accordingly -->
-    <script>
-    	function unsubscribe(){
-    		if(userEmail != null)
-    		{
-    			//remove email from datastore
-    		}
-    	}
-    	
-    	function subscribe(){
-    		if(userEmail != null)
-    		{
-    			//add email to datastore
-    		}
-    	}
-    </script>
+    <br>
+    
+    <form method="GET" action="/subscription">
+    	<h3>Join our mailing list!</h3>
+    	<input class="form-control form-control-lg" type="text" placeholder="your-email@gmail.com" name = "email">
+    	<button type="submit" class="btn btn-primary">Subscribe</button>
+	 </form>
     
       <br>
       <br>
