@@ -25,16 +25,18 @@ public class Subscription extends HttpServlet {
 	{
 	    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	    String email = request.getParameter("email");
+	    boolean subscribing = (request.getParameter("subscribe") != null);
 	    Key key = KeyFactory.createKey("Subscription", email);
 	    
 	    Entity e = datastore.get(Arrays.asList(key)).get(key);
 	    
-	    if (e == null) {
+	    if (e == null && subscribing) {
 	    	doPost(request, response, email, key, datastore);
 	    	//subscribed!
 	    } 
-	    else {
-	    	//already subscribed
+	    else if(e != null && !subscribing){
+	    	datastore.delete(key);
+	    	//unsubscribe
 	    }
 	}
 
