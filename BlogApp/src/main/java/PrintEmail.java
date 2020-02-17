@@ -34,7 +34,8 @@ public class PrintEmail extends HttpServlet {
     PrintWriter out = resp.getWriter();
     String title = req.getParameter("title");
     String content = req.getParameter("content");
-    String username = req.getParameter("usernameHolder");
+    String firstname = req.getParameter("FirstName");
+    String lastname = req.getParameter("LastName");
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     long time = System.currentTimeMillis();
@@ -44,7 +45,9 @@ public class PrintEmail extends HttpServlet {
     postEntity.setProperty("Title", title);
     postEntity.setProperty("Content", content);
     postEntity.setProperty("timestamp", time);
-    postEntity.setProperty("Username", username);
+    postEntity.setProperty("firstname", firstname);
+    postEntity.setProperty("lastname", lastname);
+    
     datastore.put(postEntity);
     
     grabPosts(req, resp, datastore);
@@ -54,12 +57,16 @@ public class PrintEmail extends HttpServlet {
   }
   
   public void grabPosts(HttpServletRequest req, HttpServletResponse resp, DatastoreService datastore) throws IOException, ServletException {
-      ArrayList<String> postTitles = new ArrayList<String>();
+      ArrayList<String> firstNames = new ArrayList<String>();
+      ArrayList<String> lastNames = new ArrayList<String>();
+	  ArrayList<String> postTitles = new ArrayList<String>();
       ArrayList<String> postContents = new ArrayList<String>();
       ArrayList<String> postTimes = new ArrayList<String>();
 	  int i=0;
 	  
 	  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
+		  firstNames.add((String) entity.getProperty("firstname"));
+		  lastNames.add((String) entity.getProperty("lastname"));
 		  postTitles.add((String) entity.getProperty("Title"));
 		  postContents.add((String) entity.getProperty("Content"));
 		  postTimes.add(convertTime((Long) entity.getProperty("timestamp")));	
@@ -67,6 +74,8 @@ public class PrintEmail extends HttpServlet {
 		  i++;
 	  }
 	  
+	  req.setAttribute("firstnames", firstNames.toArray(new String[firstNames.size()]));
+	  req.setAttribute("lastnames", lastNames.toArray(new String[lastNames.size()]));
 	  req.setAttribute("titles", postTitles.toArray(new String[postTitles.size()]));
 	  req.setAttribute("contents", postContents.toArray(new String[postContents.size()]));
 	  req.setAttribute("times", postTimes.toArray(new String[postTimes.size()]));

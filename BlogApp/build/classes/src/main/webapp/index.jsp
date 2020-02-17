@@ -16,21 +16,30 @@
   <div class="container">
     <!-- Content here -->
     <h1 id = "title">Bernie Blog</h1>
-    <img id = "bernie" src="/images/bernie.jpg" />
-<!--  <form>
-	    <div class="form-group">
-	      <label for="exampleInputEmail1">Email address</label>
-	      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-	    </div>
-	    <div class="form-group">
-	      <label for="exampleInputPassword1">Password</label>
-	      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-	    </div>
-	    <div class="form-check">
-	    </div>
-	    <button type="submit" class="btn btn-primary">Submit</button>
-  	</form>
--->
+    <!--  <img id = "bernie" src="/images/bernie.jpg" /> -->
+    
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/images/bernie2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/bernie3.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/bernie4.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
 	<h3 id="welcome">Welcome! Please sign in!</h3>
   	<div id="signinButton" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
   	<script>
@@ -47,7 +56,9 @@
         userName = profile.getName();
         welcomeText();
         var x = document.getElementById("createpost");
+        var y = document.getElementById("postform");
 	    x.style.display = "block"
+	    y.style.display = "block"
         
       }
     </script>
@@ -76,10 +87,14 @@
 		String[] titles;
 	    String[] contents;
 	    String[] times;
+	    String[] firstnames;
+	    String[] lastnames;
         
         titles = (String[])request.getAttribute("titles");
         contents = (String[])request.getAttribute("contents");
         times = (String[])request.getAttribute("times");
+        firstnames = (String[])request.getAttribute("firstnames");
+        lastnames = (String[])request.getAttribute("lastnames");
         int length;
         if (titles != null) {
 	        if (titles.length > 3)
@@ -94,6 +109,7 @@
 		  <% for (int i = titles.length-1; i > titles.length - 4 && i >=0; i--) { %>
 		        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
+			        <p>By <%= firstnames[i] + " " + lastnames[i] %></p> 
 		        <p><%= contents[i] %></p>
 		  <% } %>
 		<% } %>
@@ -106,6 +122,7 @@
 				<%while (i>=0) { %>
 			        <h3><%= titles[i] %></h3>
 			        <p><%= times[i] %></p> 
+			        <p>By <%= firstnames[i] %> <%= lastnames[i] %></p> 
 			        <p><%= contents[i] %></p> 
 			        
 					<% i--; %>
@@ -115,6 +132,29 @@
 		 <form method = "GET" action="/showallposts">
 			 <input type="submit" value = "Show All Posts" class="btn btn-outline-primary">
 		 </form>
+		<div id ="postform" >
+		    <form method="POST" action="/printemail">
+			 <h1 id ="blogposttitle">Submit a blog post!</h1>
+			 <div class="row">
+			   <div class="col">
+			     <input type="text" class="form-control" placeholder="First name" name="FirstName">
+			   </div>
+			   <div class="col">
+			     <input type="text" class="form-control" placeholder="Last name" name="LastName">
+			   </div>
+			  </div>
+			  <br>
+			 <div class="form-group">
+			   <input class="form-control form-control-lg" type="text" placeholder="Title" name = "title">
+			   <br>
+			   <!--<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
+			   <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Content"  name = "content" rows="6"></textarea>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		   </form>
+	   </div>
+	   
 	    <form method = "GET" action ="createpostpage">
 	       <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
 	       <input type="text" id="usernameField" name="userName">
@@ -124,6 +164,7 @@
     		</script>
 		   <!-- <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>-->
 		</form>
+		
 
 	 </div>
   </div> 

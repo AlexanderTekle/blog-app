@@ -30,12 +30,16 @@ public class ShowAllPosts extends HttpServlet {
 	  
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       
+      ArrayList<String> firstNames = new ArrayList<String>();
+      ArrayList<String> lastNames = new ArrayList<String>();
       ArrayList<String> postTitles = new ArrayList<String>();
       ArrayList<String> postContents = new ArrayList<String>();
       ArrayList<String> postTimes = new ArrayList<String>();
 	  int i=0;
 	  
 	  for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
+		  firstNames.add((String) entity.getProperty("firstname"));
+		  lastNames.add((String) entity.getProperty("lastname"));
 		  postTitles.add((String) entity.getProperty("Title"));
 		  postContents.add((String) entity.getProperty("Content"));
 		  postTimes.add(convertTime((Long) entity.getProperty("timestamp")));	
@@ -43,6 +47,8 @@ public class ShowAllPosts extends HttpServlet {
 		  i++;
 	  }
 	  
+	  req.setAttribute("firstnames", firstNames.toArray(new String[firstNames.size()]));
+	  req.setAttribute("lastnames", lastNames.toArray(new String[lastNames.size()]));
 	  req.setAttribute("titles", postTitles.toArray(new String[postTitles.size()]));
 	  req.setAttribute("contents", postContents.toArray(new String[postContents.size()]));
 	  req.setAttribute("times", postTimes.toArray(new String[postTimes.size()]));
