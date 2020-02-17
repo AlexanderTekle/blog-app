@@ -71,22 +71,6 @@
     
       <br>
       <br>
-	 <form method="POST" action="/printemail">
-	 	<h3 id ="blogposttitle">Submit a blog post!</h3>
-	   <div class="form-group">
-	     <label for="exampleBlogTitle1">Post Title</label>
-	     <input class="form-control form-control-lg" type="text" placeholder="Title" name = "title">
-	     <!--<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
-	     <label for="exampleBlogContent1">Post Content</label>
-	  <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Content"  name = "content" rows="6"></textarea>
-	   </div>
-	
-	
-	   <button type="submit" class="btn btn-primary">Submit</button>
-	 </form>
-
-	 <br>
-	 <br>
     <%
         //Actor actor = new Actor();
 		String[] titles;
@@ -131,8 +115,9 @@
 		 <form method = "GET" action="/showallposts">
 			 <input type="submit" value = "Show All Posts" class="btn btn-outline-primary">
 		 </form>
-	    <form>
-		   <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
+	    <form method = "GET" action ="createpostpage">
+	       <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
+		   <!-- <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>-->
 		</form>
 
 	 </div>

@@ -43,6 +43,15 @@
   	<url-pattern>/subscription</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+  	<servlet-name>createpostpage</servlet-name>
+  	<servlet-class>Createpostpage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>createpostpage</servlet-name>
+  	<url-pattern>/createpostpage</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
   	<servlet-name>grabposts</servlet-name>
   	<servlet-class>GrabPosts</servlet-class>
