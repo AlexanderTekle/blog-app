@@ -39,14 +39,14 @@ public class MailCron extends HttpServlet {
 	    
 	    String dailyMessage = "New Posts: \n";
 	    ArrayList<String> newPosts = new ArrayList<String>();
-	    newPosts.add("User x posted title");
 	    long currentTime = System.currentTimeMillis();
 	    for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
 	    	String content = (String) entity.getProperty("Title");
 			long postTime = (Long) entity.getProperty("timestamp");
-			if(postTime + 86400000 >= currentTime)
+			int timeDiff = (int)(currentTime - postTime);
+			if(timeDiff >= 86400000)
 			{
-				int hoursAgo = (int)(currentTime - postTime) % 3600000;
+				int hoursAgo = (int)(timeDiff / 3600000);
 				content += "\nPosted " + hoursAgo + " hours ago";
 				newPosts.add(content);
 			}
@@ -76,7 +76,6 @@ public class MailCron extends HttpServlet {
 	public ArrayList<String> getMailList(DatastoreService datastore)
 	{
 		ArrayList<String> mailingList = new ArrayList<String>();
-		mailingList.add("s.dauenbaugh@gmail.com");
 		for (Entity entity : datastore.prepare(new Query("Subscription")).asIterable()) {
 			  mailingList.add((String) entity.getProperty("email"));
 		}
