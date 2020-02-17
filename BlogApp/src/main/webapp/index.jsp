@@ -117,6 +117,11 @@
 		 </form>
 	    <form method = "GET" action ="createpostpage">
 	       <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
+	       <input type="text" id="usernameField" name="userName">
+    		<script>
+    			document.getElementById("usernameField").stlye.display = "none";
+    			document.getElementById("usernameField").value = userName;
+    		</script>
 		   <!-- <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>-->
 		</form>
 

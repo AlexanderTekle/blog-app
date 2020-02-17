@@ -21,6 +21,12 @@
 	   <!--<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
 	   <label for="exampleBlogContent1">Post Content</label>
 	   <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Content"  name = "content" rows="6"></textarea>
+	   <textarea name="usernameHolder" id="usernameHolder"></textarea>
+	   <script>
+	   		var username = '<%=request.getParameter("username")%>';
+	   		document.getElementById("usernameHolder").style.display = "none";
+	   		document.getElementById("usernameHolder").value = username;
+	   </script>
 	</div>
 	<button type="submit" class="btn btn-primary">Submit</button>
    </form>

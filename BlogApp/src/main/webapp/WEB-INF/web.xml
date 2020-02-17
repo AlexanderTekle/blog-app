@@ -45,7 +45,7 @@
   
     <servlet>
   	<servlet-name>createpostpage</servlet-name>
-  	<servlet-class>Createpostpage</servlet-class>
+  	<servlet-class>CreatePostPage</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>createpostpage</servlet-name>

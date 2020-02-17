@@ -34,7 +34,7 @@ public class PrintEmail extends HttpServlet {
     PrintWriter out = resp.getWriter();
     String title = req.getParameter("title");
     String content = req.getParameter("content");
-
+    String username = req.getParameter("usernameHolder");
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     long time = System.currentTimeMillis();
@@ -44,6 +44,7 @@ public class PrintEmail extends HttpServlet {
     postEntity.setProperty("Title", title);
     postEntity.setProperty("Content", content);
     postEntity.setProperty("timestamp", time);
+    postEntity.setProperty("Username", username);
     datastore.put(postEntity);
     
     grabPosts(req, resp, datastore);

@@ -24,7 +24,7 @@ import com.google.appengine.api.datastore.Query;
 public class CreatePostPage extends HttpServlet {
 	
 	  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		  req.getRequestDispatcher("/WEB-INF/post.jsp").forward(req, resp);
+		  req.getRequestDispatcher("/WEB-INF/post.jsp?username=username").forward(req, resp);
 		  
 	  }
 }
