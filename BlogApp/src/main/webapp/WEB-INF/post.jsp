@@ -23,7 +23,9 @@
 	   <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Content"  name = "content" rows="6"></textarea>
 	   <textarea name="usernameHolder" id="usernameHolder"></textarea>
 	   <script>
-	   		var username = '<%=request.getParameter("username")%>';
+	   		const queryString = window.location.search;
+	   		const urlParams = new URLSearchParams(queryString);
+	   		var username = urlParams.get('username');
 	   		document.getElementById("usernameHolder").style.display = "none";
 	   		document.getElementById("usernameHolder").value = username;
 	   </script>
