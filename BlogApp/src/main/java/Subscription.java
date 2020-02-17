@@ -38,8 +38,8 @@ public class Subscription extends HttpServlet {
 	    	datastore.delete(key);
 	    	//unsubscribe
 	    }
-	    
-	    response.sendRedirect("https://blog-app-268202.appspot.com");
+		  RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+	      view.forward(request, response);
 	}
 
 	
@@ -48,7 +48,5 @@ public class Subscription extends HttpServlet {
 		  Entity e = new Entity(key);
 		  e.setProperty("email", email);
 		  datastore.put(e);
-		  RequestDispatcher view = req.getRequestDispatcher("index.jsp");
-	      view.forward(req, resp);
 	  }
 }
