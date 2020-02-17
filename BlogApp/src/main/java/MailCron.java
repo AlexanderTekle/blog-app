@@ -16,11 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Query;
+
 public class MailCron extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
+		DatastoreService datastore  = DatastoreServiceFactory.getDatastoreService();
 		response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
 
@@ -29,12 +35,22 @@ public class MailCron extends HttpServlet {
 	    Properties props = new Properties();
 	    Session session = Session.getDefaultInstance(props, null);
 	    
-	    ArrayList<String> mailingList = getMailList();
+	    ArrayList<String> mailingList = getMailList(datastore);
 	    
 	    String dailyMessage = "New Posts: \n";
 	    ArrayList<String> newPosts = new ArrayList<String>();
 	    newPosts.add("User x posted title");
-	    //Add new posts
+	    long currentTime = System.currentTimeMillis();
+	    for (Entity entity : datastore.prepare(new Query("BlogPost")).asIterable()) {
+	    	String content = (String) entity.getProperty("Title");
+			long postTime = (Long) entity.getProperty("timestamp");
+			if(postTime + 86400000 >= currentTime)
+			{
+				int hoursAgo = (int)(currentTime - postTime) % 3600000;
+				content += "\nPosted " + hoursAgo + " hours ago";
+				newPosts.add(content);
+			}
+		}
 	    for(String post : newPosts)
 	    {
 	    	dailyMessage += post + "\n\n";
@@ -57,11 +73,13 @@ public class MailCron extends HttpServlet {
 	    }
 	}
 	
-	public ArrayList<String> getMailList()
+	public ArrayList<String> getMailList(DatastoreService datastore)
 	{
 		ArrayList<String> mailingList = new ArrayList<String>();
 		mailingList.add("s.dauenbaugh@gmail.com");
-		//get all the subscribed emails from the datastore
+		for (Entity entity : datastore.prepare(new Query("Subscription")).asIterable()) {
+			  mailingList.add((String) entity.getProperty("email"));
+		}
 		return mailingList;
 	}
 
