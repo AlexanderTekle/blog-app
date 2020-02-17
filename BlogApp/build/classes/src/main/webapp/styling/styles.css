@@ -14,3 +14,7 @@
 #blogposttitle {
 	text-align:center;
 } 
+
+#createpost {
+	display: none;
+}

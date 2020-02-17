@@ -46,13 +46,17 @@
         userEmail = profile.getEmail();
         userName = profile.getName();
         welcomeText();
+        var x = document.getElementById("createpost");
+	    x.style.display = "block"
+        
       }
     </script>
     <script>
     	function welcomeText()
     	{
-    		if(userEmail != null)
+    		if(userEmail != null)  {
     			document.getElementById("welcome").innerHTML = "Welcome, " + userName + "!";
+    		}
     	}
     </script>
     
@@ -127,7 +131,10 @@
 		 <form method = "GET" action="/showallposts">
 			 <input type="submit" value = "Show All Posts" class="btn btn-outline-primary">
 		 </form>
-		 
+	    <form>
+		   <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
+		</form>
+
 	 </div>
   </div> 
 </body>
