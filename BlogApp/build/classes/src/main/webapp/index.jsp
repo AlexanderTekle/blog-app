@@ -15,19 +15,18 @@
 <body>
   <div class="container">
     <!-- Content here -->
-    <h1 id = "title">Bernie Blog</h1>
-    <!--  <img id = "bernie" src="/images/bernie.jpg" /> -->
+    	<h1 id = "title">Bernie Blog</h1>
     
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="/images/bernie2.jpg" class="d-block w-100" alt="...">
+      <img src="/images/bernie2.jpg" class="d-block w-100" alt="A scary Bernie Sanders">
     </div>
     <div class="carousel-item">
-      <img src="/images/bernie3.jpg" class="d-block w-100" alt="...">
+      <img src="/images/bernie3.jpg" class="d-block w-100" alt="A confused Bernie Sanders">
     </div>
     <div class="carousel-item">
-      <img src="/images/bernie4.jpg" class="d-block w-100" alt="...">
+      <img src="/images/bernie4.jpg" class="d-block w-100" alt="A young Bernie Sanders">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
@@ -39,7 +38,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
+<br>
 	<h3 id="welcome">Welcome! Please sign in!</h3>
   	<div id="signinButton" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
   	<script>
@@ -55,9 +54,7 @@
         userEmail = profile.getEmail();
         userName = profile.getName();
         welcomeText();
-        var x = document.getElementById("createpost");
         var y = document.getElementById("postform");
-	    x.style.display = "block"
 	    y.style.display = "block"
         
       }
@@ -76,12 +73,14 @@
     <form method="GET" action="/subscription">
     	<h3>Join our mailing list!</h3>
     	<input class="form-control form-control-lg" type="text" placeholder="your-email@gmail.com" name = "email">
+    	<br>
     	<button type="submit" class="btn btn-primary" name="subscribe">Subscribe</button>
     	<button type="submit" class="btn btn-primary" name="unsubscribe">Unsubscribe</button>
 	 </form>
     
       <br>
       <br>
+      <h2 class = "center">Recent Blog Posts</h2>
     <%
         //Actor actor = new Actor();
 		String[] titles;
@@ -154,20 +153,11 @@
 			<button type="submit" class="btn btn-primary">Submit</button>
 		   </form>
 	   </div>
-	   
-	    <form method = "GET" action ="createpostpage">
-	       <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>
-	       <input type="text" id="usernameField" name="userName">
-    		<script>
-    			document.getElementById("usernameField").stlye.display = "none";
-    			document.getElementById("usernameField").value = userName;
-    		</script>
-		   <!-- <button type="submit" class="btn btn-primary" id = "createpost">Create a Post!</button>-->
-		</form>
-		
+	  
 
 	 </div>
   </div> 
+  
 </body>
 
 </html>

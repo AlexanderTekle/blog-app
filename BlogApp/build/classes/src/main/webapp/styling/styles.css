@@ -15,11 +15,16 @@
 	text-align:center;
 } 
 
-#createpost {
-	display: none;
-}
-
 
 #postform {
 	display: none;
 }
+
+.center {
+	text-align:center;
+}
+
+#hidden {
+	display:hidden;
+}
+  

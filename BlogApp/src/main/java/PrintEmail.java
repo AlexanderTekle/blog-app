@@ -31,9 +31,13 @@ public class PrintEmail extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    PrintWriter out = resp.getWriter();
+    //PrintWriter out = resp.getWriter();
+    //String content = req.getParameter("content").replaceAll("<br>","\\n").replaceAll("<p>","\\n\\n").replaceAll("</p>","");
+
+    //out.println(content);
+
     String title = req.getParameter("title");
-    String content = req.getParameter("content");
+    String content = req.getParameter("content").replaceAll("<br>","\\n").replaceAll("<p>","\\n\\n").replaceAll("</p>","");
     String firstname = req.getParameter("FirstName");
     String lastname = req.getParameter("LastName");
     
